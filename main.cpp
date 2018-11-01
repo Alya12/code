@@ -1,51 +1,65 @@
-// Example program
-#include <iostream>
-#include <string>
+#include <iostream> 
+class ListNode{ 
+public: 
+ int content; 
+ ListNode *pointerToNext; 
+}; 
+void freeTheMemory(ListNode *runner){ 
+ if( runner!=nullptr){ 
+ freeTheMemory((*runner).pointerToNext); 
+ delete runner; 
+ } 
+} 
+int main(){ 
+ int userInput; 
+ ListNode *head; 
+ std::cout<<"Insert the first element of the list: "; 
+ std::cin>>userInput; 
+ head=new ListNode; 
+ (*head).content=userInput; 
+ (*head).pointerToNext=nullptr; 
+ ListNode *runner; 
+ runner=head; 
+ while(userInput!=-9){ 
+ std::cout<<"Insert an element of the list (-9 for the end): "; 
+ std::cin>>userInput; 
+ if(userInput!=-9){ 
+ // *runner is the last node in the list (tail) 
+ // (*runner).pointerToNext is currently nullptr 
+ // We now allocate new memory for ListNode and make 
+ // (*runner).pointerToNext to contain the address 
+ // of this new ListNode 
+ (*runner).pointerToNext=new ListNode; 
 
-int main()
-{
-int totalA=2; int totalB=1;int counter=0; 
-int* seqA; int* seqB;
-int n;
-std::cin>> n; 
-if (n%2==0){
-    seqA=new int[n/2];
-    seqB=new int[n/2];}
-if (n%2 !=0) {
-    seqA= new int[(n/2)+1];
-    seqB= new int[(n/2)];
-    seqA[n/2]=n; 
-    }
-seqA[0]=2; seqB[0]=1; 
-counter+=1;
-for(int i=3; i< n; i+=2){
-    std::cout<< "this is counter"<< counter<< std::endl;
-    if ((totalA+i) < (totalB+i+1)) { 
-        totalA+=i+1; totalB+=i;
-        seqA[counter]= i+1; seqB[counter]=i; 
-        counter+=1;}
-    else if ((totalA+i) == (totalB+i+1)) {
-        totalA+=i; totalB+=i+1;
-        seqA[counter]= i; seqB[counter]=i+1; 
-        counter+=1;}
+ // runner is no more pointing to the tail 
+ // The next line updates the runner to point 
+ // to the newly created tail 
+ runner=(*runner).pointerToNext; 
+
+ // We now set the content of the tail 
+ (*runner).content=userInput; 
+ // and make sure that the tail‘s pointer 
+ // to the the next is set to nullptr 
+ (*runner).pointerToNext=nullptr; 
+ } 
+ } 
+
+ std::cout<<"List printout: "<<std::endl; 
+ runner=head; 
+ while(runner!=nullptr){ 
+ std::cout<<7+(*runner).content<<" "; 
+ runner=(*runner).pointerToNext; 
+ } 
+ std::cout<<std::endl; 
+
+ // FREEING THE MEMORY 
+ freeTheMemory(head); 
+ delete head;
+
+ runner=head; 
+ while(runner!=nullptr){ 
+ std::cout<<7+(*runner).content<<" "; 
+ runner=(*runner).pointerToNext; 
+ } 
+ return 0; 
 }
-
-if (n%2 !=0) { totalA+=n;}
-std:: cout<< totalA<<std::endl;
-std:: cout<< totalB<< std::endl;
-
-std::cout<< "this is inside the sequence A" << std::endl;
-if (n%2==0){ std::cout<< "A gets"<< std::endl; for (int i=0; i< n/2; i++){  std::cout<< " " <<seqA[i]; }}
-std::cout<< "this is inside the sequence B" <<std::endl;
-
-std::cout<< "B gets"<< std::endl; for (int i=0; i< n/2; i++){  std::cout<< " " <<seqB[i]; }
-
-if (n%2!=0){ std::cout<< "A gets"<< std::endl; for (int i=0; i< (n/2)+1; i++){  std::cout<<" " << seqA[i];}}
-
-delete[] seqA;
-delete[] seqB;
-
-return 0;}
-
-
-
