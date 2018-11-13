@@ -1,0 +1,75 @@
+#include <iostream> 
+
+class SN {
+    public: 
+    int content;
+    SN* next;
+};
+
+void push ( int i, SN** head){
+    SN* nh; 
+    nh=new SN;
+    nh->next= *head;
+    nh->content=i;
+    *head= nh;
+}
+
+int pop( SN** head){
+    int fr=-17;
+    
+    if (head!=nullptr){
+        fr= (*head)->content;
+        SN* nh;
+        nh=*head;
+        *head=(*head)->next;
+        delete nh;
+    }
+    return fr;
+}
+
+int readtop(SN* head){
+    if (head!=nullptr){
+        return head->content;
+    }
+    return 0;
+}
+
+
+int main(){
+    SN* head= nullptr;
+    int k;
+    int len=0;
+    for (int i=0; i<50; i++){
+            //std::cout<< "putting 1"<<std::endl;
+            push(1,&head)  ; 
+           // std::cout<< "putting 0"<<std::endl;
+            push(0,&head);
+        
+    }
+    std::cin>>k;
+    SN* neww; neww= head; 
+    while( (k>0) and (&head !=nullptr) ){
+        SN* neww; neww= head; 
+
+        len++;
+        int sum= 0;
+        for (int i=0; i<k; i++){
+            int current= readtop(neww);
+            std::cout<<"this is current"<< current<<std::endl;
+             sum+= current;
+             neww=neww->next;
+            }
+        //std::cout<< "this is sum"<<sum<<std::endl;
+        push(sum, &head);
+        std::cin>>k;
+        
+        
+    }
+    
+    std::cout<< "the sequence has been extended"<<len<<"times"<<std::endl;
+    std::cout<<"the last term of the sequence is"<<readtop(head)<<std::endl;
+    while(&head!=nullptr){
+        pop(&head);
+    }
+    return 0;
+}
