@@ -1,0 +1,78 @@
+// make pop push with void push and int pop
+// but not within class
+#include<iostream> 
+class StackNode{ 
+public: 
+ int content; 
+ StackNode* pNext; 
+}; 
+StackNode* push(StackNode* pHead, int newC){ 
+ StackNode* newHead; 
+ newHead=new StackNode; 
+ newHead->content=newC; 
+ newHead->pNext=pHead; 
+ return newHead; 
+} 
+StackNode* pop(StackNode* pHead){ 
+ if(pHead!=nullptr){ 
+ StackNode* newHead; 
+ newHead=pHead->pNext; 
+ delete pHead; 
+ return newHead; 
+ } 
+ return nullptr; 
+} 
+int readTop(StackNode* pHead){ 
+ if(pHead!=nullptr){ 
+ return pHead->content; 
+ } 
+ return 0; 
+} 
+int addTopTerms(StackNode* pHead, int numTerms){ 
+ if(numTerms<1){ 
+ return 0; 
+ } 
+ if(pHead==nullptr){ 
+ return 0; 
+ } 
+ return (pHead->content) + addTopTerms((pHead->pNext),numTerms-1); 
+} 
+
+
+int main(){ 
+    
+ StackNode* pointerHead=nullptr; 
+ int ui;
+ std::cin>> ui;
+ StackNode* y=nullptr;
+ StackNode* runner;
+ runner=pointerHead;
+ int len=0;
+ while( ui!=-9){
+    pointerHead=push(pointerHead, ui);
+
+     //std::cout<< "this is top"<< topp;
+     if (ui>0){ y= push(y, ui);}
+     if( ui<0){
+        for(int i=0; i< -1*ui; i++){ 
+         y=pop(y);
+         std::cout<< "this is top of y"<< readTop(y);}
+     }
+    std::cout<< "this is top of y"<< readTop(y)<<std::endl;
+     
+    std::cin>>ui;
+     
+ }
+ StackNode* reverse=nullptr;
+while (y!=nullptr){
+    reverse= push(reverse, readTop(y));
+    y=pop(y);
+}
+
+while (reverse!=nullptr){
+    std::cout<< readTop(reverse);
+    reverse=pop(reverse);
+}
+
+ return 0; 
+}
