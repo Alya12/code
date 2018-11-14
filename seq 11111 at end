@@ -1,0 +1,34 @@
+#include <iostream>
+
+void addone( int** seq, int *n, int last){
+    int* nseq;
+    nseq= new int [(*n)+last];
+    for (int i=0; i<*n; i++){
+        nseq[i]= (*seq)[i];
+    }
+    for (int i=*n; i<(*n)+last; i++ ){
+        nseq[i]=1;
+    }
+    if (*seq!=nullptr){ delete[] *seq;}
+    *seq= nseq;
+    *n= (*n)+last;
+    
+}
+
+
+int main(){
+    int* seq;
+    int n;
+    std::cin>> n;
+    seq= new int[n];
+    for (int i=0; i<n; i++){
+        std::cin>>seq[i];
+    }
+    int last= seq[n-1];
+    addone(&seq, &n, last);
+    for (int i=0; i<n; i++){
+        std::cout<< seq[i]<<std::endl;
+    }
+    delete[] seq;
+    return 0;
+}
