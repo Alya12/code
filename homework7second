@@ -1,0 +1,31 @@
+#include <iostream>
+// this program should have a function to check if the number is
+//prime
+
+int IsPrime(int number, int reference=1){
+    if(reference==number){ return 0;}
+    if ( (number % reference == 0) and ( reference!=1)){ return 1;}
+    IsPrime(number, reference+1);
+}
+int main() { int p,q,alpha;
+    std::cout << "please enter alpha" << std::endl;
+    std::cin>>alpha;
+    std::cout<<"please enter p and q"<<std::endl;
+    std::cin>>p>>q;
+    if (IsPrime(p)==0 and IsPrime(q)==0){
+    while (p>0 and q>0){
+        if (IsPrime(p)==0 and IsPrime(q)==0){
+            int c= (p*p)+(q*q)+alpha;
+            std::cout<<"this is c"<<c<<std::endl;
+            if (IsPrime(c)==0){
+                std::cout<<"p  "<<p<< " and q "<< q<< "  are an alpha couple "<<std::endl;
+            }
+        }
+        std::cout<<"please enter p and q"<<std::endl;
+
+        std::cin>>p>>q;
+
+        }
+    }
+    return 0;
+}
