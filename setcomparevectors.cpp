@@ -1,3 +1,4 @@
+//took picture for the two questions look on date December 5th
 #include <iostream>
 #include <vector>
 #include <set>
